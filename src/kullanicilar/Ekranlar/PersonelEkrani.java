@@ -16,6 +16,7 @@ public class PersonelEkrani extends javax.swing.JFrame {
      */
     public PersonelEkrani() {
         initComponents();
+        alinanArabalarPnl.setVisible(false);
     }
 
     /**
@@ -27,22 +28,49 @@ public class PersonelEkrani extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        alinanArabalarPnl = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        alinanTable = new javax.swing.JTable();
+        alinanArabalarBtn = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        alinanArabalarPnl.setLayout(null);
 
-        setSize(new java.awt.Dimension(418, 347));
+        alinanTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(alinanTable);
+
+        alinanArabalarPnl.add(jScrollPane1);
+        jScrollPane1.setBounds(30, 40, 452, 256);
+
+        getContentPane().add(alinanArabalarPnl);
+        alinanArabalarPnl.setBounds(290, 140, 520, 330);
+
+        alinanArabalarBtn.setText("Alınan Arabalar");
+        alinanArabalarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alinanArabalarBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(alinanArabalarBtn);
+        alinanArabalarBtn.setBounds(650, 50, 121, 25);
+
+        setSize(new java.awt.Dimension(850, 551));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void alinanArabalarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alinanArabalarBtnActionPerformed
+        // TODO add your handling code here:
+        alinanArabalarPnl.setVisible(true);
+    }//GEN-LAST:event_alinanArabalarBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +108,9 @@ public class PersonelEkrani extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton alinanArabalarBtn;
+    private javax.swing.JPanel alinanArabalarPnl;
+    private javax.swing.JTable alinanTable;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

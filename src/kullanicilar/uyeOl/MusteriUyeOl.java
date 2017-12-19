@@ -2,6 +2,7 @@ package kullanicilar.uyeOl;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import kullanicilar.Musteri;
 
 /*
@@ -20,7 +21,8 @@ public class MusteriUyeOl extends javax.swing.JFrame {
      */
     public MusteriUyeOl() {
         initComponents();
-
+        this.setTitle("Müşteri Üye Olma");
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -59,19 +61,19 @@ public class MusteriUyeOl extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(80, 160, 50, 16);
         getContentPane().add(isimTxt);
-        isimTxt.setBounds(190, 150, 220, 30);
+        isimTxt.setBounds(260, 150, 220, 30);
 
         jLabel2.setText("Şifre:");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(80, 220, 50, 16);
         getContentPane().add(sifreTxt);
-        sifreTxt.setBounds(190, 210, 220, 30);
+        sifreTxt.setBounds(260, 210, 220, 30);
 
         jLabel4.setText("Şifre (Tekrar):");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(80, 290, 80, 16);
+        jLabel4.setBounds(80, 290, 100, 16);
         getContentPane().add(sifreTekrarTxt);
-        sifreTekrarTxt.setBounds(190, 280, 220, 30);
+        sifreTekrarTxt.setBounds(260, 280, 220, 30);
 
         uyeOlBtn.setText("Üye Ol");
         uyeOlBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +82,7 @@ public class MusteriUyeOl extends javax.swing.JFrame {
             }
         });
         getContentPane().add(uyeOlBtn);
-        uyeOlBtn.setBounds(310, 370, 100, 25);
+        uyeOlBtn.setBounds(390, 370, 100, 25);
 
         vazgecBtn.setText("Vazgeç");
         vazgecBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -89,7 +91,7 @@ public class MusteriUyeOl extends javax.swing.JFrame {
             }
         });
         getContentPane().add(vazgecBtn);
-        vazgecBtn.setBounds(190, 370, 90, 25);
+        vazgecBtn.setBounds(270, 370, 90, 25);
 
         jLabel5.setText("Kimlik No:");
         getContentPane().add(jLabel5);
@@ -101,9 +103,9 @@ public class MusteriUyeOl extends javax.swing.JFrame {
             }
         });
         getContentPane().add(kimlikNoTxt);
-        kimlikNoTxt.setBounds(190, 90, 220, 30);
+        kimlikNoTxt.setBounds(260, 90, 220, 30);
 
-        setSize(new java.awt.Dimension(550, 494));
+        setSize(new java.awt.Dimension(631, 542));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
