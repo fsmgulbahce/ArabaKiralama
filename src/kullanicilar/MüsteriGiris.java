@@ -125,7 +125,7 @@ private void musteriKontrol() {
         boolean kontrol = false;
         for (int i = 0; i < Musteri.musteriler.size(); i++) {
             Musteri musteri1 = Musteri.musteriler.get(i);
-            if ((musteri1.isim.equals(kimlikNoTxt.getText())) && (musteri1.sife.equals(sifreTxt.getText()))) {
+            if ((musteri1.isim.equals(kimlikNoTxt.getText())) && (musteri1.sifre.equals(sifreTxt.getText()))) {
                 kontrol = true;
                 break;
             }

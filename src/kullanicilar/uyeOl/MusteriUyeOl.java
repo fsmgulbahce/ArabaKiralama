@@ -133,6 +133,9 @@ public class MusteriUyeOl extends javax.swing.JFrame {
 
             if (s1.equals(s2)) {
                 musteriUyelik();
+                for (kullanicilar.Musteri musterim : kullanicilar.Musteri.musteriler) {
+                 
+                }
                 new kullanicilar.MüsteriGiris().setVisible(true);
                 this.setVisible(false);
             } else {
@@ -145,7 +148,7 @@ public class MusteriUyeOl extends javax.swing.JFrame {
         Musteri m1 = new Musteri();
         m1.kimlikNo = Long.parseLong(kimlikNoTxt.getText());
         m1.isim = isimTxt.getText();
-        m1.sife = sifreTxt.getText();
+        m1.sifre = String.copyValueOf(sifreTxt.getPassword());
 
         Musteri.musteriler.add(m1);
     }
