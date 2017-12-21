@@ -45,13 +45,13 @@ public class MusteriEkrani extends javax.swing.JFrame {
 
         jButton1.setText("Üzerimdeki Arabalar");
         getContentPane().add(jButton1);
-        jButton1.setBounds(90, 110, 180, 40);
+        jButton1.setBounds(40, 120, 280, 100);
 
         jButton2.setText("Araba Kirala");
         getContentPane().add(jButton2);
-        jButton2.setBounds(420, 110, 180, 40);
+        jButton2.setBounds(370, 120, 280, 100);
 
-        setSize(new java.awt.Dimension(697, 539));
+        setSize(new java.awt.Dimension(697, 366));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
