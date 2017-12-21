@@ -5,6 +5,8 @@
  */
 package kullanicilar.Ekranlar;
 
+import javax.swing.WindowConstants;
+
 /**
  *
  * @author Rosegarden
@@ -16,6 +18,9 @@ public class MusteriEkrani extends javax.swing.JFrame {
      */
     public MusteriEkrani() {
         initComponents();
+        this.setTitle("Müşteri Ekranı");
+        musteriIsmiTxt.setText(kullanicilar.MusteriGiris.girisYapan);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -27,20 +32,26 @@ public class MusteriEkrani extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        musteriIsmiTxt = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        musteriIsmiTxt.setEnabled(false);
+        getContentPane().add(musteriIsmiTxt);
+        musteriIsmiTxt.setBounds(530, 10, 140, 30);
 
-        setSize(new java.awt.Dimension(418, 347));
+        jButton1.setText("Üzerimdeki Arabalar");
+        getContentPane().add(jButton1);
+        jButton1.setBounds(90, 110, 180, 40);
+
+        jButton2.setText("Araba Kirala");
+        getContentPane().add(jButton2);
+        jButton2.setBounds(420, 110, 180, 40);
+
+        setSize(new java.awt.Dimension(697, 539));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -81,5 +92,8 @@ public class MusteriEkrani extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField musteriIsmiTxt;
     // End of variables declaration//GEN-END:variables
 }

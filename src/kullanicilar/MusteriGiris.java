@@ -123,12 +123,13 @@ public class MusteriGiris extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_girisBtnActionPerformed
 private void musteriKontrol() {
-
+       
         boolean kontrol = false;
         for (int i = 0; i < musteriler.size(); i++) {
             Musteri musteri1 = musteriler.get(i);
-            if ((musteri1.isim.equals(kimlikNoTxt.getText())) && (musteri1.sifre.equals(sifreTxt.getText()))) {
+            if ((musteri1.kimlikNo == Long.parseLong(kimlikNoTxt.getText())) && (musteri1.sifre.equals(sifreTxt.getText()))) {
                 kontrol = true;
+                girisYapan = musteri1.isim;
                 break;
             }
         }

@@ -23,6 +23,7 @@ public class KullaniciGirisi extends javax.swing.JFrame {
     Icon resim = new ImageIcon("1.jpg");
     public KullaniciGirisi() {
         initComponents();
+        this.setTitle("Kullanıcı Girişi");
         this.getContentPane().setBackground(Color.WHITE);
         resimLbl.setIcon(resim);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -81,7 +82,7 @@ public class KullaniciGirisi extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         String []options={"ÇIKIŞ","İPTAL"};
-        int i = JOptionPane.showOptionDialog(this, "Bu işlem sizin programdan çıkmanıza sebep olur."+"\n"+"Devam etmek istiyormusunuz?", "Programdan Çıkış", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        int i = JOptionPane.showOptionDialog(this, "Bu işlem sizin Hoşgeldiniz sayfasına gitmenize sebep olur."+"\n"+"Devam etmek istiyormusunuz?", "Programdan Çıkış", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
         if (i == 0) {
             this.setVisible(false);
