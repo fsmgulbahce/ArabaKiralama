@@ -17,7 +17,7 @@ import kullanicilar.uyeOl.MusteriUyeOl;
  * @author Rosegarden
  */
 public class MüsteriGiris extends javax.swing.JFrame {
-
+    public static String girisYapan;
     /**
      * Creates new form MüsteriGiris
      */
@@ -136,6 +136,8 @@ private void musteriKontrol() {
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(girisBtn, "Girilen Musteri İsmi Veya Şifreniz Yanlış.", "Musteri Bulunamadı", JOptionPane.WARNING_MESSAGE);
+            kimlikNoTxt.setText(null);
+            sifreTxt.setText(null);
         }
     }
     private void kimlikNoTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kimlikNoTxtKeyTyped

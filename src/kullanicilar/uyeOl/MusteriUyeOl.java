@@ -117,6 +117,11 @@ public class MusteriUyeOl extends javax.swing.JFrame {
 
     private void uyeOlBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uyeOlBtnActionPerformed
         // TODO add your handling code here:
+        Musteri m1 = new Musteri();
+        m1.kimlikNo = Long.parseLong(kimlikNoTxt.getText());
+        m1.isim = isimTxt.getText();
+        m1.sifre = String.copyValueOf(sifreTxt.getPassword());
+        
         String[] options = {"ONAYLA", "VAZGEÇ"};
         int i = JOptionPane.showOptionDialog(this, "Bilgilerin Doğruluğundan Emin misiniz ? \n" + "(Onayla dedikten sonra geri dönüş yapılamaz)", "Kayıt Etme Sistemi",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
@@ -132,9 +137,11 @@ public class MusteriUyeOl extends javax.swing.JFrame {
         } else {
 
             if (s1.equals(s2)) {
-                musteriUyelik();
+               
                 for (kullanicilar.Musteri musterim : kullanicilar.Musteri.musteriler) {
-                 
+                    if (musterim.isim.compareTo(s2)) {
+                        
+                    }
                 }
                 new kullanicilar.MüsteriGiris().setVisible(true);
                 this.setVisible(false);
@@ -144,14 +151,7 @@ public class MusteriUyeOl extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_uyeOlBtnActionPerformed
-    private void musteriUyelik() {
-        Musteri m1 = new Musteri();
-        m1.kimlikNo = Long.parseLong(kimlikNoTxt.getText());
-        m1.isim = isimTxt.getText();
-        m1.sifre = String.copyValueOf(sifreTxt.getPassword());
-
-        Musteri.musteriler.add(m1);
-    }
+    
     private void kimlikNoTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kimlikNoTxtKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
