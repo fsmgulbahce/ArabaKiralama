@@ -20,7 +20,6 @@ public class MusteriEkrani extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Müşteri Ekranı");
         musteriIsmiTxt.setText(kullanicilar.MusteriGiris.girisYapan);
-        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -34,9 +33,14 @@ public class MusteriEkrani extends javax.swing.JFrame {
 
         musteriIsmiTxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        arabaKiralaBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         musteriIsmiTxt.setEnabled(false);
@@ -47,13 +51,28 @@ public class MusteriEkrani extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(40, 120, 280, 100);
 
-        jButton2.setText("Araba Kirala");
-        getContentPane().add(jButton2);
-        jButton2.setBounds(370, 120, 280, 100);
+        arabaKiralaBtn.setText("Araba Kirala");
+        arabaKiralaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                arabaKiralaBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(arabaKiralaBtn);
+        arabaKiralaBtn.setBounds(370, 120, 280, 100);
 
         setSize(new java.awt.Dimension(697, 366));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void arabaKiralaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arabaKiralaBtnActionPerformed
+        // TODO add your handling code here:
+        new ArabaKirala().setVisible(true);
+    }//GEN-LAST:event_arabaKiralaBtnActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -92,8 +111,8 @@ public class MusteriEkrani extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton arabaKiralaBtn;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JTextField musteriIsmiTxt;
     // End of variables declaration//GEN-END:variables
 }

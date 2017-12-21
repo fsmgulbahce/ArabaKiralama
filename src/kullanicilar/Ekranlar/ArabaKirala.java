@@ -6,6 +6,7 @@
 package kullanicilar.Ekranlar;
 
 import java.time.LocalDate;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -18,95 +19,8 @@ public class ArabaKirala extends javax.swing.JFrame {
      */
     public ArabaKirala() {
         initComponents();
-        LocalDate localDate = LocalDate.now();
-        int yil = localDate.getYear();
-        int ay = localDate.getMonthValue();
-        int gun = localDate.getDayOfMonth();
-
-        for (int i = 0; i < 14; i++) {
-            alinabilecekTarihCombo.addItem(gun + "/" + ay + "/" + yil);
-            gun++;
-            while (ay <= 12) {
-                switch (ay) {
-                    case 1:
-                        if (gun > 31) {
-                            gun = 1;
-                            ay += 1;
-                        }
-                    case 2:
-                        if ((yil % 4 == 0) && (!(yil % 100 == 0) || (yil % 400 == 0))) {
-                            for (gun = 1; gun < 30; gun++) {
-                                if (gun >= 30) {
-                                    gun = 1;
-                                    ay += 1;
-                                }
-                            }
-                        } else {
-                            for (gun = 1; gun < 29; gun++) {
-                                if (gun >= 29) {
-                                    gun = 1;
-                                    ay += 1;
-                                }
-                            }
-                        }
-                    case 3:
-                        if (gun > 31) {
-                            gun = 1;
-                            ay += 1;
-                        }
-                    case 4:
-                        if (gun > 30) {
-                            gun = 1;
-                            ay += 1;
-                        }
-                    case 5:
-                        if (gun > 31) {
-                            gun = 1;
-                            ay += 1;
-                        }
-                    case 6:
-                        if (gun > 30) {
-                            gun = 1;
-                            ay += 1;
-                        }
-                    case 7:
-                        if (gun > 31) {
-                            gun = 1;
-                            ay += 1;
-                        }
-                    case 8:
-                        if (gun > 31) {
-                            gun = 1;
-                            ay += 1;
-                        }
-                    case 9:
-                        if (gun > 30) {
-                            gun = 1;
-                            ay += 1;
-                        }
-                    case 10:
-                        if (gun > 31) {
-                            gun = 1;
-                            ay += 1;
-                        }
-                    case 11:
-                        if (gun > 30) {
-                            gun = 1;
-                            ay += 1;
-                        }
-                    case 12:
-                        if (gun > 31) {
-                            gun = 1;
-                            ay = 1;
-                            yil += 1;
-                        }
-                    default:
-                        break;
-                }
-
-            }
-        }
-
+        tarih();
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -125,10 +39,16 @@ public class ArabaKirala extends javax.swing.JFrame {
         alinabilecekTarihCombo = new javax.swing.JComboBox<>();
         verilebilecekTarihCombo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        aramaTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        araBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -161,16 +81,110 @@ public class ArabaKirala extends javax.swing.JFrame {
         jButton1.setText("Araba Kirala");
         getContentPane().add(jButton1);
         jButton1.setBounds(550, 160, 110, 25);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(140, 10, 410, 30);
+        getContentPane().add(aramaTxt);
+        aramaTxt.setBounds(140, 10, 410, 30);
 
         jLabel3.setText("Arama:");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(20, 10, 110, 30);
 
+        araBtn.setText("Ara");
+        getContentPane().add(araBtn);
+        araBtn.setBounds(570, 10, 53, 25);
+
         setSize(new java.awt.Dimension(698, 541));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_formWindowClosing
+    private void tarih() {
+        LocalDate localDate = LocalDate.now();
+        int yil = localDate.getYear();
+        int ay = localDate.getMonthValue();
+        int gun = localDate.getDayOfMonth();
+
+        for (int i = 0; i < 14; i++) {
+            alinabilecekTarihCombo.addItem(gun + "/" + ay + "/" + yil);
+            gun++;
+
+            switch (ay) {
+                case 1:
+                    if (gun > 31) {
+                        gun = 1;
+                        ay += 1;
+                    }
+                case 2:
+
+                    if ((yil % 4 == 0) && (!(yil % 100 == 0) || (yil % 400 == 0))) {
+                        if (gun > 29) {
+                            gun = 1;
+                            ay += 1;
+                        }
+                    } else {
+                        if (gun > 28) {
+                            gun = 1;
+                            ay += 1;
+                        }
+                    }
+
+                case 3:
+                    if (gun > 31) {
+                        gun = 1;
+                        ay += 1;
+                    }
+                case 4:
+                    if (gun > 30) {
+                        gun = 1;
+                        ay += 1;
+                    }
+                case 5:
+                    if (gun > 31) {
+                        gun = 1;
+                        ay += 1;
+                    }
+                case 6:
+                    if (gun > 30) {
+                        gun = 1;
+                        ay += 1;
+                    }
+                case 7:
+                    if (gun > 31) {
+                        gun = 1;
+                        ay += 1;
+                    }
+                case 8:
+                    if (gun > 31) {
+                        gun = 1;
+                        ay += 1;
+                    }
+                case 9:
+                    if (gun > 30) {
+                        gun = 1;
+                        ay += 1;
+                    }
+                case 10:
+                    if (gun > 31) {
+                        gun = 1;
+                        ay += 1;
+                    }
+                case 11:
+                    if (gun > 30) {
+                        gun = 1;
+                        ay += 1;
+                    }
+                case 12:
+                    if (gun > 31) {
+                        gun = 1;
+                        ay = 1;
+                        yil += 1;
+                    }
+            }
+            verilebilecekTarihCombo.addItem(gun + "/" + ay + "/" + yil);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -210,13 +224,14 @@ public class ArabaKirala extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> alinabilecekTarihCombo;
+    private javax.swing.JButton araBtn;
+    private javax.swing.JTextField aramaTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> verilebilecekTarihCombo;
     // End of variables declaration//GEN-END:variables
 }
