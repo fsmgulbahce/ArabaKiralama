@@ -111,7 +111,7 @@ public class MusteriUyeOl extends javax.swing.JFrame {
 
     private void vazgecBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vazgecBtnActionPerformed
         // TODO add your handling code here:
-        new kullanicilar.MüsteriGiris().setVisible(true);
+        new kullanicilar.MusteriGiris().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_vazgecBtnActionPerformed
 
@@ -121,7 +121,7 @@ public class MusteriUyeOl extends javax.swing.JFrame {
         m1.kimlikNo = Long.parseLong(kimlikNoTxt.getText());
         m1.isim = isimTxt.getText();
         m1.sifre = String.copyValueOf(sifreTxt.getPassword());
-        
+
         String[] options = {"ONAYLA", "VAZGEÇ"};
         int i = JOptionPane.showOptionDialog(this, "Bilgilerin Doğruluğundan Emin misiniz ? \n" + "(Onayla dedikten sonra geri dönüş yapılamaz)", "Kayıt Etme Sistemi",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
@@ -129,29 +129,38 @@ public class MusteriUyeOl extends javax.swing.JFrame {
         char[] c2 = sifreTekrarTxt.getPassword();
         String s1 = new String(c1);
         String s2 = new String(c2);
-
+        boolean kontrol = false;
         if (i == 0) {
             if ((kimlikNoTxt.getText().isEmpty()) || (isimTxt.getText().isEmpty()) || (sifreTxt.getText().isEmpty()) || (String.valueOf(sifreTekrarTxt.getPassword()).isEmpty())) {
                 JOptionPane.showMessageDialog(uyeOlBtn, "Tüm Alanları Doldurunuz !..", "Boş Alan Hatası", JOptionPane.WARNING_MESSAGE);
-            }
-        } else {
 
-            if (s1.equals(s2)) {
-               
-                for (kullanicilar.Musteri musterim : kullanicilar.Musteri.musteriler) {
-                    if (musterim.isim.compareTo(s2)) {
-                        
-                    }
-                }
-                new kullanicilar.MüsteriGiris().setVisible(true);
-                this.setVisible(false);
+            } else if (!(kimlikNoTxt.getText().length() == 11)) {
+                JOptionPane.showMessageDialog(uyeOlBtn, "Eksik kimlik numarası girdiniz", "Kimlik Numarası Hatası", JOptionPane.WARNING_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(uyeOlBtn, "Şifreler Eşleşmedi", "Şifre Hatası", JOptionPane.WARNING_MESSAGE);
+
+                if (s1.equals(s2)) {
+
+                    for (kullanicilar.Musteri musterim : kullanicilar.MusteriGiris.musteriler) {
+                        if (musterim.kimlikNo == (m1.kimlikNo)) {
+                            kontrol = true;
+                            break;
+                        }
+                    }
+
+                    if (kontrol) {
+                        JOptionPane.showMessageDialog(uyeOlBtn, "Böyle bir kullanıcı zaten var...", "Benzer Kullanıcı Hatası", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        kullanicilar.MusteriGiris.musteriler.add(m1);
+                        JOptionPane.showMessageDialog(this, "Kaydınız başarıyla gerçekleştirilmiştir.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(uyeOlBtn, "Şifreler Eşleşmedi", "Şifre Hatası", JOptionPane.WARNING_MESSAGE);
+                }
             }
         }
 
     }//GEN-LAST:event_uyeOlBtnActionPerformed
-    
+
     private void kimlikNoTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kimlikNoTxtKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();

@@ -97,7 +97,7 @@ public class KullaniciGirisi extends javax.swing.JFrame {
 
     private void musteriGirisBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musteriGirisBtnActionPerformed
         // TODO add your handling code here:
-        new kullanicilar.MüsteriGiris().setVisible(true);
+        new kullanicilar.MusteriGiris().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_musteriGirisBtnActionPerformed
 

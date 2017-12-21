@@ -15,5 +15,5 @@ public class Musteri {
     public long kimlikNo;
     public String isim;
     public String sifre;
-    public static ArrayList<Musteri> musteriler = new ArrayList<>();
+   
 }

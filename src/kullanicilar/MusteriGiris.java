@@ -7,6 +7,7 @@ package kullanicilar;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import kullanicilar.Ekranlar.MusteriEkrani;
@@ -16,12 +17,13 @@ import kullanicilar.uyeOl.MusteriUyeOl;
  *
  * @author Rosegarden
  */
-public class MüsteriGiris extends javax.swing.JFrame {
-    public static String girisYapan;
+public class MusteriGiris extends javax.swing.JFrame {
+     public static String girisYapan;
+     public static ArrayList<Musteri> musteriler = new ArrayList<>();
     /**
      * Creates new form MüsteriGiris
      */
-    public MüsteriGiris() {
+    public MusteriGiris() {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
         this.setTitle("Müşteri Girişi");
@@ -110,7 +112,7 @@ public class MüsteriGiris extends javax.swing.JFrame {
 
     private void girisBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_girisBtnActionPerformed
         // TODO add your handling code here:
-        if (!(kimlikNoTxt.getText().length() < 11 && kimlikNoTxt.getText().length() > 10)) {
+        if (!(kimlikNoTxt.getText().length() == 11)) {
              JOptionPane.showMessageDialog(uyeOlBtn, "Eksik kimlik numarası girdiniz", "Kimlik Numarası Hatası", JOptionPane.WARNING_MESSAGE);
         }
         else if(kimlikNoTxt.getText().isEmpty() && sifreTxt.getText().isEmpty()){
@@ -123,8 +125,8 @@ public class MüsteriGiris extends javax.swing.JFrame {
 private void musteriKontrol() {
 
         boolean kontrol = false;
-        for (int i = 0; i < Musteri.musteriler.size(); i++) {
-            Musteri musteri1 = Musteri.musteriler.get(i);
+        for (int i = 0; i < musteriler.size(); i++) {
+            Musteri musteri1 = musteriler.get(i);
             if ((musteri1.isim.equals(kimlikNoTxt.getText())) && (musteri1.sifre.equals(sifreTxt.getText()))) {
                 kontrol = true;
                 break;
@@ -181,20 +183,21 @@ private void musteriKontrol() {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MüsteriGiris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MusteriGiris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MüsteriGiris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MusteriGiris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MüsteriGiris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MusteriGiris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MüsteriGiris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MusteriGiris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MüsteriGiris().setVisible(true);
+                new MusteriGiris().setVisible(true);
             }
         });
     }
