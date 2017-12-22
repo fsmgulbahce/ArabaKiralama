@@ -5,6 +5,13 @@
  */
 package kullanicilar.Ekranlar;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
+import kullanicilar.KullaniciGirisi;
+
 /**
  *
  * @author Rosegarden
@@ -14,9 +21,22 @@ public class PersonelEkrani extends javax.swing.JFrame {
     /**
      * Creates new form PersonelEkrani
      */
+    
+    DefaultTableModel dtm = new DefaultTableModel();
+
     public PersonelEkrani() {
         initComponents();
-        alinanArabalarPnl.setVisible(false);
+        this.getContentPane().setBackground(Color.GRAY);
+        this.setTitle("Personel Ekranı");
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dtm.setColumnIdentifiers(new Object[]{"Araba Modeli", "Günlük Ücret"});
+        sistemdeOlanlarTable.setModel(dtm);
+         ArabaListesi.arabaYukle();
+          for (int i = 0; i < ArabaListesi.arabalarim.size(); i++) {
+             dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).model, ArabaListesi.arabalarim.get(i).fiyat});
+        }
+
+       
     }
 
     /**
@@ -28,17 +48,18 @@ public class PersonelEkrani extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        alinanArabalarPnl = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        alinanTable = new javax.swing.JTable();
-        alinanArabalarBtn = new javax.swing.JButton();
+        sistemdeOlanlarTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
-        alinanArabalarPnl.setLayout(null);
-
-        alinanTable.setModel(new javax.swing.table.DefaultTableModel(
+        sistemdeOlanlarTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -46,31 +67,25 @@ public class PersonelEkrani extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(alinanTable);
+        jScrollPane1.setViewportView(sistemdeOlanlarTable);
 
-        alinanArabalarPnl.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 40, 452, 256);
-
-        getContentPane().add(alinanArabalarPnl);
-        alinanArabalarPnl.setBounds(290, 140, 520, 330);
-
-        alinanArabalarBtn.setText("Alınan Arabalar");
-        alinanArabalarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alinanArabalarBtnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(alinanArabalarBtn);
-        alinanArabalarBtn.setBounds(650, 50, 121, 25);
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(10, 160, 452, 320);
 
         setSize(new java.awt.Dimension(850, 551));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void alinanArabalarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alinanArabalarBtnActionPerformed
+   
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        alinanArabalarPnl.setVisible(true);
-    }//GEN-LAST:event_alinanArabalarBtnActionPerformed
+        String[] options = {"ÇIKIŞ", "İPTAL"};
+        int i = JOptionPane.showOptionDialog(this, "Bu işlem sizi Kullanıcı Girişine götürür." + "\n" + "Tekrar Kullanıcı Seçimi yapmak için ekranına dönersiniz." + "\n" + "Devam etmek istiyormusunuz?", "Personel Girişinden Çıkış", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+        if (i == 0) {
+            this.setVisible(false);
+            new KullaniciGirisi().setVisible(true);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -108,9 +123,7 @@ public class PersonelEkrani extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton alinanArabalarBtn;
-    private javax.swing.JPanel alinanArabalarPnl;
-    private javax.swing.JTable alinanTable;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable sistemdeOlanlarTable;
     // End of variables declaration//GEN-END:variables
 }

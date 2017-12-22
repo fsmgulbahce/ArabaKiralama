@@ -6,6 +6,7 @@
 package kullanicilar.Ekranlar;
 
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,6 +17,7 @@ public class MusteriEkrani extends javax.swing.JFrame {
     /**
      * Creates new form KullaniciEkrani
      */
+   
     public MusteriEkrani() {
         initComponents();
         this.setTitle("Müşteri Ekranı");
