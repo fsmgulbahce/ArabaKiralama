@@ -129,7 +129,7 @@ public class ArabaKirala extends javax.swing.JFrame {
 
         araBtn.setText("Ara");
         getContentPane().add(araBtn);
-        araBtn.setBounds(570, 10, 53, 25);
+        araBtn.setBounds(570, 10, 80, 30);
 
         fiyatHesaplaBtn.setText("Fiyat Hesapla");
         fiyatHesaplaBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -142,11 +142,11 @@ public class ArabaKirala extends javax.swing.JFrame {
 
         jLabel4.setText("Fiyat:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(20, 160, 70, 16);
+        jLabel4.setBounds(10, 160, 70, 16);
 
         fiyatTxt.setEnabled(false);
         getContentPane().add(fiyatTxt);
-        fiyatTxt.setBounds(80, 160, 150, 22);
+        fiyatTxt.setBounds(140, 160, 150, 22);
 
         setSize(new java.awt.Dimension(812, 541));
         setLocationRelativeTo(null);
@@ -159,19 +159,18 @@ public class ArabaKirala extends javax.swing.JFrame {
 
     private void arabaKiralaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arabaKiralaBtnActionPerformed
         // TODO add your handling code here:
-       try {
+        try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date alisTarihi = sdf.parse(alinabilecekTarihCombo.getSelectedItem().toString());
             Date verilisTarihi = sdf.parse(verilebilecekTarihCombo.getSelectedItem().toString());
             if (alisTarihi.compareTo(verilisTarihi) < 0) {
-                
+
             } else {
-                 JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "TARİH HATASI", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "TARİH HATASI", JOptionPane.WARNING_MESSAGE);
             }
         } catch (ParseException ex) {
             Logger.getLogger(ArabaKirala.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_arabaKiralaBtnActionPerformed
 
     private void fiyatHesaplaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiyatHesaplaBtnActionPerformed
@@ -182,16 +181,15 @@ public class ArabaKirala extends javax.swing.JFrame {
             Date verilisTarihi = sdf.parse(verilebilecekTarihCombo.getSelectedItem().toString());
             int gunUcret = Integer.parseInt(dtm.getValueAt(sistemdeBulunanArabalarTable.getSelectedRow(), 1).toString());
             if (alisTarihi.compareTo(verilisTarihi) < 0) {
-                 long diff = verilisTarihi.getTime() - alisTarihi.getTime();
-                 long gun = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-                     double fiyat = gun * gunUcret;
-                     fiyatTxt.setText(String.valueOf(fiyat));
-                     
+                long diff = verilisTarihi.getTime() - alisTarihi.getTime();
+                long gun = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                double fiyat = gun * gunUcret;
+                fiyatTxt.setText(String.valueOf(fiyat));
+
             } else {
-                 JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "TARİH HATASI", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "TARİH HATASI", JOptionPane.WARNING_MESSAGE);
             }
-           
-            
+
         } catch (ParseException ex) {
             Logger.getLogger(ArabaKirala.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -200,7 +198,7 @@ public class ArabaKirala extends javax.swing.JFrame {
 
     private void verilebilecekTarihComboCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_verilebilecekTarihComboCaretPositionChanged
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_verilebilecekTarihComboCaretPositionChanged
     private void tarih() {
 

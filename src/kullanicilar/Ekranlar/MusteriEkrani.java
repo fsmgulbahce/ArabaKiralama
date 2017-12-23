@@ -34,8 +34,9 @@ public class MusteriEkrani extends javax.swing.JFrame {
     private void initComponents() {
 
         musteriIsmiTxt = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         arabaKiralaBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        alinanArabalarTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -49,10 +50,6 @@ public class MusteriEkrani extends javax.swing.JFrame {
         getContentPane().add(musteriIsmiTxt);
         musteriIsmiTxt.setBounds(530, 10, 140, 30);
 
-        jButton1.setText("Üzerimdeki Arabalar");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(40, 120, 280, 100);
-
         arabaKiralaBtn.setText("Araba Kirala");
         arabaKiralaBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,9 +57,22 @@ public class MusteriEkrani extends javax.swing.JFrame {
             }
         });
         getContentPane().add(arabaKiralaBtn);
-        arabaKiralaBtn.setBounds(370, 120, 280, 100);
+        arabaKiralaBtn.setBounds(20, 10, 190, 30);
 
-        setSize(new java.awt.Dimension(697, 366));
+        alinanArabalarTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(alinanArabalarTable);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(20, 160, 480, 300);
+
+        setSize(new java.awt.Dimension(697, 530));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -113,8 +123,9 @@ public class MusteriEkrani extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable alinanArabalarTable;
     private javax.swing.JButton arabaKiralaBtn;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField musteriIsmiTxt;
     // End of variables declaration//GEN-END:variables
 }
