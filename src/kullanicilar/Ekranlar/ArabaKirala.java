@@ -13,7 +13,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,7 +32,7 @@ public class ArabaKirala extends javax.swing.JFrame {
     int yil = localDate.getYear();
     int ay = localDate.getMonthValue();
     int gun = localDate.getDayOfMonth();
-
+    
     /**
      * Creates new form ArabaKiralama
      */
@@ -45,6 +50,42 @@ public class ArabaKirala extends javax.swing.JFrame {
             dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).model, ArabaListesi.arabalarim.get(i).fiyat});
         }
 
+        sistemdeBulunanArabalarTable.setCellSelectionEnabled(true);
+        ListSelectionModel cellSelectionModel = sistemdeBulunanArabalarTable.getSelectionModel();
+        cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+               
+                int selectedData = 0;
+                int[] selectedRow = sistemdeBulunanArabalarTable.getSelectedRows();
+
+                for (int i = 0; i < selectedRow.length; i++) {
+                    selectedData = (int) sistemdeBulunanArabalarTable.getValueAt(selectedRow[i], 1);
+                }
+                 try {
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date alisTarihi = sdf.parse(alinabilecekTarihCombo.getSelectedItem().toString());
+                Date verilisTarihi = sdf.parse(verilebilecekTarihCombo.getSelectedItem().toString());
+                //int gunUcret = Integer.parseInt(dtm.getValueAt(sistemdeBulunanArabalarTable.getSelectedRow(), 1).toString());
+                if (alisTarihi.compareTo(verilisTarihi) < 0) {
+                    long diff = verilisTarihi.getTime() - alisTarihi.getTime();
+                    long gun = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                    double fiyat = gun * selectedData;
+                    fiyatTxt.setText(String.valueOf(fiyat));
+
+                } else {
+                    JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "TARİH HATASI", JOptionPane.WARNING_MESSAGE);
+                }
+
+            } catch (ParseException ex) {
+                Logger.getLogger(ArabaKirala.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+
+        });
+       
     }
 
     /**
@@ -66,7 +107,6 @@ public class ArabaKirala extends javax.swing.JFrame {
         aramaTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         araBtn = new javax.swing.JButton();
-        fiyatHesaplaBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         fiyatTxt = new javax.swing.JTextField();
 
@@ -102,13 +142,6 @@ public class ArabaKirala extends javax.swing.JFrame {
         getContentPane().add(alinabilecekTarihCombo);
         alinabilecekTarihCombo.setBounds(140, 100, 190, 30);
 
-        verilebilecekTarihCombo.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                verilebilecekTarihComboCaretPositionChanged(evt);
-            }
-        });
         getContentPane().add(verilebilecekTarihCombo);
         verilebilecekTarihCombo.setBounds(480, 100, 190, 30);
 
@@ -119,7 +152,7 @@ public class ArabaKirala extends javax.swing.JFrame {
             }
         });
         getContentPane().add(arabaKiralaBtn);
-        arabaKiralaBtn.setBounds(540, 240, 120, 25);
+        arabaKiralaBtn.setBounds(540, 190, 120, 25);
         getContentPane().add(aramaTxt);
         aramaTxt.setBounds(140, 10, 410, 30);
 
@@ -131,15 +164,6 @@ public class ArabaKirala extends javax.swing.JFrame {
         getContentPane().add(araBtn);
         araBtn.setBounds(570, 10, 80, 30);
 
-        fiyatHesaplaBtn.setText("Fiyat Hesapla");
-        fiyatHesaplaBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fiyatHesaplaBtnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(fiyatHesaplaBtn);
-        fiyatHesaplaBtn.setBounds(540, 190, 120, 25);
-
         jLabel4.setText("Fiyat:");
         getContentPane().add(jLabel4);
         jLabel4.setBounds(10, 160, 70, 16);
@@ -148,7 +172,7 @@ public class ArabaKirala extends javax.swing.JFrame {
         getContentPane().add(fiyatTxt);
         fiyatTxt.setBounds(140, 160, 150, 22);
 
-        setSize(new java.awt.Dimension(812, 541));
+        setSize(new java.awt.Dimension(751, 541));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -164,7 +188,7 @@ public class ArabaKirala extends javax.swing.JFrame {
             Date alisTarihi = sdf.parse(alinabilecekTarihCombo.getSelectedItem().toString());
             Date verilisTarihi = sdf.parse(verilebilecekTarihCombo.getSelectedItem().toString());
             if (alisTarihi.compareTo(verilisTarihi) < 0) {
-                 MusteriEkrani.dtm2.addRow(new Object[]{});
+                MusteriEkrani.dtm2.addRow(new Object[]{dtm.getValueAt(sistemdeBulunanArabalarTable.getSelectedRow(), 0), fiyatTxt.getText()});
             } else {
                 JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "TARİH HATASI", JOptionPane.WARNING_MESSAGE);
             }
@@ -173,34 +197,6 @@ public class ArabaKirala extends javax.swing.JFrame {
         }
         dtm.removeRow(sistemdeBulunanArabalarTable.getSelectedRow());
     }//GEN-LAST:event_arabaKiralaBtnActionPerformed
-
-    private void fiyatHesaplaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiyatHesaplaBtnActionPerformed
-        try {
-            // TODO add your handling code here:
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date alisTarihi = sdf.parse(alinabilecekTarihCombo.getSelectedItem().toString());
-            Date verilisTarihi = sdf.parse(verilebilecekTarihCombo.getSelectedItem().toString());
-            int gunUcret = Integer.parseInt(dtm.getValueAt(sistemdeBulunanArabalarTable.getSelectedRow(), 1).toString());
-            if (alisTarihi.compareTo(verilisTarihi) < 0) {
-                long diff = verilisTarihi.getTime() - alisTarihi.getTime();
-                long gun = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-                double fiyat = gun * gunUcret;
-                fiyatTxt.setText(String.valueOf(fiyat));
-
-            } else {
-                JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "TARİH HATASI", JOptionPane.WARNING_MESSAGE);
-            }
-
-        } catch (ParseException ex) {
-            Logger.getLogger(ArabaKirala.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_fiyatHesaplaBtnActionPerformed
-
-    private void verilebilecekTarihComboCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_verilebilecekTarihComboCaretPositionChanged
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_verilebilecekTarihComboCaretPositionChanged
     private void tarih() {
 
         for (int i = 0; i < 14; i++) {
@@ -328,7 +324,6 @@ public class ArabaKirala extends javax.swing.JFrame {
     private javax.swing.JButton araBtn;
     private javax.swing.JButton arabaKiralaBtn;
     private javax.swing.JTextField aramaTxt;
-    private javax.swing.JButton fiyatHesaplaBtn;
     private javax.swing.JTextField fiyatTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

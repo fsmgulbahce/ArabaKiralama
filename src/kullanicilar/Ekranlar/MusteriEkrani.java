@@ -25,7 +25,9 @@ public class MusteriEkrani extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Müşteri Ekranı");
         musteriIsmiTxt.setText(kullanicilar.MusteriGiris.girisYapan);
+        dtm2.setColumnIdentifiers(new Object[]{"Araba Modeli", "Toplam Ücret","Alım Tarihi","Teslim Tarihi"});
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        alinanArabalarTable.setModel(dtm2);
     }
 
     /**
