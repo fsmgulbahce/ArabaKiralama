@@ -146,9 +146,13 @@ public class ArabaKirala extends javax.swing.JFrame {
 
     private void arabaKiralaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arabaKiralaBtnActionPerformed
         // TODO add your handling code here:
-        String aGun = alinabilecekTarihCombo.getSelectedItem().toString();
-        String vGun = verilebilecekTarihCombo.getSelectedItem().toString();
-        
+        String aGun = alinabilecekTarihCombo.getSelectedItem().toString().substring(0, 2);
+        String vGun = verilebilecekTarihCombo.getSelectedItem().toString().substring(0, 2);
+        String aAy = alinabilecekTarihCombo.getSelectedItem().toString().substring(3, 5);
+        String vAy = verilebilecekTarihCombo.getSelectedItem().toString().substring(3, 5);
+        String aYil = alinabilecekTarihCombo.getSelectedItem().toString().substring(6, 8);
+        String vYil = verilebilecekTarihCombo.getSelectedItem().toString().substring(6, 8);
+       
     }//GEN-LAST:event_arabaKiralaBtnActionPerformed
 
     private void fiyatHesaplaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiyatHesaplaBtnActionPerformed
