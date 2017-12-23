@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -179,13 +180,18 @@ public class ArabaKirala extends javax.swing.JFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date alisTarihi = sdf.parse(alinabilecekTarihCombo.getSelectedItem().toString());
             Date verilisTarihi = sdf.parse(verilebilecekTarihCombo.getSelectedItem().toString());
-            
-            if (kacGun < 0) {
-                kacGun *= -1;
-                System.out.println(kacGun);
+            int gunUcret = Integer.parseInt(dtm.getValueAt(sistemdeBulunanArabalarTable.getSelectedRow(), 1).toString());
+            if (alisTarihi.compareTo(verilisTarihi) < 0) {
+                 long diff = verilisTarihi.getTime() - alisTarihi.getTime();
+                 long gun = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                     double fiyat = gun * gunUcret;
+                     fiyatTxt.setText(String.valueOf(fiyat));
+                     
             } else {
-                System.out.println(kacGun);
+                 JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "TARİH HATASI", JOptionPane.WARNING_MESSAGE);
             }
+           
+            
         } catch (ParseException ex) {
             Logger.getLogger(ArabaKirala.class.getName()).log(Level.SEVERE, null, ex);
         }
