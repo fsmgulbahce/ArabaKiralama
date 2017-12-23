@@ -164,13 +164,14 @@ public class ArabaKirala extends javax.swing.JFrame {
             Date alisTarihi = sdf.parse(alinabilecekTarihCombo.getSelectedItem().toString());
             Date verilisTarihi = sdf.parse(verilebilecekTarihCombo.getSelectedItem().toString());
             if (alisTarihi.compareTo(verilisTarihi) < 0) {
-
+                 MusteriEkrani.dtm2.addRow(new Object[]{});
             } else {
                 JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "TARİH HATASI", JOptionPane.WARNING_MESSAGE);
             }
         } catch (ParseException ex) {
             Logger.getLogger(ArabaKirala.class.getName()).log(Level.SEVERE, null, ex);
         }
+        dtm.removeRow(sistemdeBulunanArabalarTable.getSelectedRow());
     }//GEN-LAST:event_arabaKiralaBtnActionPerformed
 
     private void fiyatHesaplaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiyatHesaplaBtnActionPerformed
