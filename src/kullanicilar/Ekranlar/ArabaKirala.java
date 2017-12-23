@@ -5,7 +5,13 @@
  */
 package kullanicilar.Ekranlar;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,11 +26,10 @@ public class ArabaKirala extends javax.swing.JFrame {
     int yil = localDate.getYear();
     int ay = localDate.getMonthValue();
     int gun = localDate.getDayOfMonth();
-    String tarih;
+
     /**
      * Creates new form ArabaKiralama
      */
-
     DefaultTableModel dtm = new DefaultTableModel();
 
     public ArabaKirala() {
@@ -96,6 +101,13 @@ public class ArabaKirala extends javax.swing.JFrame {
         getContentPane().add(alinabilecekTarihCombo);
         alinabilecekTarihCombo.setBounds(140, 100, 190, 30);
 
+        verilebilecekTarihCombo.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                verilebilecekTarihComboCaretPositionChanged(evt);
+            }
+        });
         getContentPane().add(verilebilecekTarihCombo);
         verilebilecekTarihCombo.setBounds(480, 100, 190, 30);
 
@@ -146,36 +158,49 @@ public class ArabaKirala extends javax.swing.JFrame {
 
     private void arabaKiralaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arabaKiralaBtnActionPerformed
         // TODO add your handling code here:
-        String aGun = alinabilecekTarihCombo.getSelectedItem().toString().substring(0, 2);
-        String vGun = verilebilecekTarihCombo.getSelectedItem().toString().substring(0, 2);
-        String aAy = alinabilecekTarihCombo.getSelectedItem().toString().substring(3, 5);
-        String vAy = verilebilecekTarihCombo.getSelectedItem().toString().substring(3, 5);
-        String aYil = alinabilecekTarihCombo.getSelectedItem().toString().substring(6, 8);
-        String vYil = verilebilecekTarihCombo.getSelectedItem().toString().substring(6, 8);
-       
+       try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date alisTarihi = sdf.parse(alinabilecekTarihCombo.getSelectedItem().toString());
+            Date verilisTarihi = sdf.parse(verilebilecekTarihCombo.getSelectedItem().toString());
+            if (alisTarihi.compareTo(verilisTarihi) < 0) {
+                
+            } else {
+                 JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "TARİH HATASI", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(ArabaKirala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_arabaKiralaBtnActionPerformed
 
     private void fiyatHesaplaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiyatHesaplaBtnActionPerformed
-        // TODO add your handling code here:
-
-        kacGun = Integer.parseInt(verilebilecekTarihCombo.getSelectedItem().toString().substring(0, 2)) - Integer.parseInt(alinabilecekTarihCombo.getSelectedItem().toString().substring(0, 2));
-        if (kacGun < 0) {
-            kacGun *= -1;
-            System.out.println(kacGun);
-        } else {
-            System.out.println(kacGun);
+        try {
+            // TODO add your handling code here:
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date alisTarihi = sdf.parse(alinabilecekTarihCombo.getSelectedItem().toString());
+            Date verilisTarihi = sdf.parse(verilebilecekTarihCombo.getSelectedItem().toString());
+            
+            if (kacGun < 0) {
+                kacGun *= -1;
+                System.out.println(kacGun);
+            } else {
+                System.out.println(kacGun);
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(ArabaKirala.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_fiyatHesaplaBtnActionPerformed
+
+    private void verilebilecekTarihComboCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_verilebilecekTarihComboCaretPositionChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_verilebilecekTarihComboCaretPositionChanged
     private void tarih() {
 
         for (int i = 0; i < 14; i++) {
 
-            if (gun < 10) {
-                alinabilecekTarihCombo.addItem("0" + gun + "/" + ay + "/" + yil);
-            } else {
-                alinabilecekTarihCombo.addItem(gun + "/" + ay + "/" + yil);
-            }
+            alinabilecekTarihCombo.addItem(gun + "/" + ay + "/" + yil);
             gun++;
 
             switch (ay) {
@@ -250,11 +275,8 @@ public class ArabaKirala extends javax.swing.JFrame {
                         yil += 1;
                     }
             }
-            if (gun < 10) {
-                verilebilecekTarihCombo.addItem("0" + gun + "/" + ay + "/" + yil);
-            } else {
-                verilebilecekTarihCombo.addItem(gun + "/" + ay + "/" + yil);
-            }
+
+            verilebilecekTarihCombo.addItem(gun + "/" + ay + "/" + yil);
 
         }
 
