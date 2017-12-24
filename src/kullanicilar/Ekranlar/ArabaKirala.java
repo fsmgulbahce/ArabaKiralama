@@ -247,7 +247,10 @@ public class ArabaKirala extends javax.swing.JFrame {
 
     private void hepsiniGosterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hepsiniGosterBtnActionPerformed
         // TODO add your handling code here:
-       
+            dtm.setRowCount(0);
+            for (int i = 0; i < ArabaListesi.arabalarim.size(); i++) {
+                dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).model,ArabaListesi.arabalarim.get(i).fiyat});
+            }
     }//GEN-LAST:event_hepsiniGosterBtnActionPerformed
     private void tarih() {
 

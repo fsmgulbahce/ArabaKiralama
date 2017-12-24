@@ -109,7 +109,12 @@ public class MusteriEkrani extends javax.swing.JFrame {
 
     private void iadeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iadeBtnActionPerformed
         // TODO add your handling code here:
-        
+         if (alinanArabalarTable.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(iadeBtn, "İade Etmek İçin Araba Seçiniz", "Seçim Yok Hatası", JOptionPane.WARNING_MESSAGE);
+            return;
+        }else{
+             
+         }
     }//GEN-LAST:event_iadeBtnActionPerformed
 
     /**
