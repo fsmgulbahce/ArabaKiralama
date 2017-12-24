@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Rosegarden
  */
 public class ArabaKirala extends javax.swing.JFrame {
-    
+
     static int kacGun;
     LocalDate localDate = LocalDate.now();
     int yil = localDate.getYear();
@@ -35,7 +35,7 @@ public class ArabaKirala extends javax.swing.JFrame {
      * Creates new form ArabaKiralama
      */
     DefaultTableModel dtm = new DefaultTableModel();
-    
+
     public ArabaKirala() {
         initComponents();
         this.setTitle("Araba Kiralama");
@@ -43,28 +43,28 @@ public class ArabaKirala extends javax.swing.JFrame {
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dtm.setColumnIdentifiers(new Object[]{"Araba Modeli", "Günlük Ücret"});
         sistemdeBulunanArabalarTable.setModel(dtm);
-        
+
         ArabaListesi.arabaYukle();
         for (int i = 0; i < ArabaListesi.arabalarim.size(); i++) {
             dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).model, ArabaListesi.arabalarim.get(i).fiyat});
         }
-        
+
         sistemdeBulunanArabalarTable.setCellSelectionEnabled(true);
         ListSelectionModel cellSelectionModel = sistemdeBulunanArabalarTable.getSelectionModel();
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
+
         cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                
+
                 int selectedData = 0;
                 int[] selectedRow = sistemdeBulunanArabalarTable.getSelectedRows();
-                
+
                 for (int i = 0; i < selectedRow.length; i++) {
                     selectedData = Integer.parseInt(sistemdeBulunanArabalarTable.getValueAt(selectedRow[i], 1).toString());
                 }
                 try {
-                    
+
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     Date alisTarihi = sdf.parse(alinabilecekTarihCombo.getSelectedItem().toString());
                     Date verilisTarihi = sdf.parse(verilebilecekTarihCombo.getSelectedItem().toString());
@@ -74,18 +74,18 @@ public class ArabaKirala extends javax.swing.JFrame {
                         long gun = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                         double fiyat = gun * selectedData;
                         fiyatTxt.setText(String.valueOf(fiyat));
-                        
+
                     } else {
                         JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "TARİH HATASI", JOptionPane.WARNING_MESSAGE);
                     }
-                    
+
                 } catch (ParseException ex) {
                     Logger.getLogger(ArabaKirala.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
+
         });
-        
+
     }
 
     /**
@@ -109,6 +109,8 @@ public class ArabaKirala extends javax.swing.JFrame {
         araBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         fiyatTxt = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        hepsiniGosterBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -161,6 +163,11 @@ public class ArabaKirala extends javax.swing.JFrame {
         jLabel3.setBounds(20, 10, 110, 30);
 
         araBtn.setText("Ara");
+        araBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                araBtnActionPerformed(evt);
+            }
+        });
         getContentPane().add(araBtn);
         araBtn.setBounds(570, 10, 80, 30);
 
@@ -171,6 +178,20 @@ public class ArabaKirala extends javax.swing.JFrame {
         fiyatTxt.setEnabled(false);
         getContentPane().add(fiyatTxt);
         fiyatTxt.setBounds(140, 160, 150, 22);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Modele göre veya girilen değer ve altındaki değerleri gösterir.");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(140, 50, 400, 16);
+
+        hepsiniGosterBtn.setText("Hepsini Göster");
+        hepsiniGosterBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hepsiniGosterBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(hepsiniGosterBtn);
+        hepsiniGosterBtn.setBounds(540, 230, 120, 25);
 
         setSize(new java.awt.Dimension(751, 541));
         setLocationRelativeTo(null);
@@ -191,20 +212,49 @@ public class ArabaKirala extends javax.swing.JFrame {
                 MusteriEkrani.dtm2.addRow(new Object[]{dtm.getValueAt(sistemdeBulunanArabalarTable.getSelectedRow(), 0), fiyatTxt.getText(),
                     alinabilecekTarihCombo.getSelectedItem(), verilebilecekTarihCombo.getSelectedItem()});
             } else {
-                JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "TARİH HATASI", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "Tarih Hatası", JOptionPane.WARNING_MESSAGE);
             }
         } catch (ParseException ex) {
             Logger.getLogger(ArabaKirala.class.getName()).log(Level.SEVERE, null, ex);
         }
         dtm.removeRow(sistemdeBulunanArabalarTable.getSelectedRow());
     }//GEN-LAST:event_arabaKiralaBtnActionPerformed
+    ArabaListesi bulunanAraba = null;
+    private void araBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_araBtnActionPerformed
+        // TODO add your handling code here:
+        if (aramaTxt.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(arabaKiralaBtn, "Arama Kısmı Boş Bırakılamaz!.. ", "Arama Boş Hatası", JOptionPane.WARNING_MESSAGE);
+        } else {
+            dtm.setRowCount(0);
+
+            String aranilan = aramaTxt.getText();
+
+            for (ArabaListesi araba : ArabaListesi.arabalarim) {
+                if (araba.model.equals(aranilan)) {
+                    dtm.addRow(new Object[]{araba.model, araba.fiyat});
+                    bulunanAraba = araba;
+                } else if (araba.fiyat <= Integer.parseInt(aranilan)) {
+                    dtm.addRow(new Object[]{araba.model, araba.fiyat});
+                    bulunanAraba = araba;
+                }
+            }
+        }
+        if (bulunanAraba == null) {
+            JOptionPane.showMessageDialog(arabaKiralaBtn, "Arama Kısmı Boş Bırakılamaz!.. ", "Arama Boş Hatası", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }//GEN-LAST:event_araBtnActionPerformed
+
+    private void hepsiniGosterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hepsiniGosterBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_hepsiniGosterBtnActionPerformed
     private void tarih() {
-        
+
         for (int i = 0; i < 14; i++) {
-            
+
             alinabilecekTarihCombo.addItem(gun + "/" + ay + "/" + yil);
             gun++;
-            
+
             switch (ay) {
                 case 1:
                     if (gun > 31) {
@@ -212,7 +262,7 @@ public class ArabaKirala extends javax.swing.JFrame {
                         ay += 1;
                     }
                 case 2:
-                    
+
                     if ((yil % 4 == 0) && (!(yil % 100 == 0) || (yil % 400 == 0))) {
                         if (gun > 29) {
                             gun = 1;
@@ -224,7 +274,7 @@ public class ArabaKirala extends javax.swing.JFrame {
                             ay += 1;
                         }
                     }
-                
+
                 case 3:
                     if (gun > 31) {
                         gun = 1;
@@ -277,11 +327,11 @@ public class ArabaKirala extends javax.swing.JFrame {
                         yil += 1;
                     }
             }
-            
+
             verilebilecekTarihCombo.addItem(gun + "/" + ay + "/" + yil);
-            
+
         }
-        
+
     }
 
     /**
@@ -326,10 +376,12 @@ public class ArabaKirala extends javax.swing.JFrame {
     private javax.swing.JButton arabaKiralaBtn;
     private javax.swing.JTextField aramaTxt;
     private javax.swing.JTextField fiyatTxt;
+    private javax.swing.JButton hepsiniGosterBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable sistemdeBulunanArabalarTable;
     private javax.swing.JComboBox<String> verilebilecekTarihCombo;
