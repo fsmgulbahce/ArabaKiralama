@@ -5,7 +5,6 @@
  */
 package kullanicilar.Ekranlar;
 
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
@@ -43,6 +42,7 @@ public class MusteriEkrani extends javax.swing.JFrame {
         arabaKiralaBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         alinanArabalarTable = new javax.swing.JTable();
+        iadeBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -78,6 +78,15 @@ public class MusteriEkrani extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(20, 160, 480, 300);
 
+        iadeBtn.setText("İade Et");
+        iadeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iadeBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(iadeBtn);
+        iadeBtn.setBounds(520, 160, 120, 25);
+
         setSize(new java.awt.Dimension(697, 530));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -97,6 +106,11 @@ public class MusteriEkrani extends javax.swing.JFrame {
             new KullaniciGirisi().setVisible(true);
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void iadeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iadeBtnActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_iadeBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,6 +151,7 @@ public class MusteriEkrani extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable alinanArabalarTable;
     private javax.swing.JButton arabaKiralaBtn;
+    private javax.swing.JButton iadeBtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField musteriIsmiTxt;
     // End of variables declaration//GEN-END:variables
