@@ -7,7 +7,6 @@ package kullanicilar.Ekranlar;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
@@ -142,7 +141,7 @@ public class PersonelEkrani extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         String[] options = {"ÇIKIŞ", "İPTAL"};
-        int i = JOptionPane.showOptionDialog(this, "Bu işlem sizi Kullanıcı Girişine götürür." + "\n" + "Tekrar Kullanıcı Seçimi yapmak için ekranına dönersiniz." + "\n" + "Devam etmek istiyormusunuz?", "Personel Girişinden Çıkış", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        int i = JOptionPane.showOptionDialog(this, "Bu işlem sizi Kullanıcı Girişine götürür." + "\n" + "Tekrar Kullanıcı Seçimi yapmak için ekranına dönersiniz." + "\n" + "Devam etmek istiyormusunuz?", "Personel Ekranından Çıkış", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
         if (i == 0) {
             this.setVisible(false);
@@ -153,8 +152,8 @@ public class PersonelEkrani extends javax.swing.JFrame {
     private void arabaEkleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arabaEkleBtnActionPerformed
         // TODO add your handling code here:
 
-       arabaKoduTxt.setText(String.valueOf(Integer.parseInt(arabaKoduTxt.getText()) + 1));
-        
+        arabaKoduTxt.setText(String.valueOf(Integer.parseInt(arabaKoduTxt.getText()) + 1));
+
         if (arabaModelTxt.getText().isEmpty() || gunlukUcret.getText().isEmpty()) {
             JOptionPane.showMessageDialog(arabaEkleBtn, "Tüm Alanları Doldurunuz !..", "Boş Alan Hatası", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -188,7 +187,7 @@ public class PersonelEkrani extends javax.swing.JFrame {
 
     private void arabaSilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arabaSilBtnActionPerformed
         // TODO add your handling code here:
-        
+      
     }//GEN-LAST:event_arabaSilBtnActionPerformed
     void ArabalariGetir() {
         ArabaListesi.arabaYukle();
