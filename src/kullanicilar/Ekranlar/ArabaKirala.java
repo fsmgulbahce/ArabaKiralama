@@ -43,7 +43,8 @@ public class ArabaKirala extends javax.swing.JFrame {
         tarih();
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         ArabaListesi.arabaYukle();
-
+        dtm.setColumnIdentifiers(new Object[]{"Araba Kodu", "Araba Modeli", "Günlük Ücret"});
+        sistemdeBulunanArabalarTable.setModel(dtm);
         sistemdeBulunanArabalarTable.setCellSelectionEnabled(true);
         ListSelectionModel cellSelectionModel = sistemdeBulunanArabalarTable.getSelectionModel();
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -79,7 +80,7 @@ public class ArabaKirala extends javax.swing.JFrame {
             }
 
         });
-        Sıfırla();
+
     }
 
     /**
@@ -199,12 +200,12 @@ public class ArabaKirala extends javax.swing.JFrame {
     private void arabaKiralaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arabaKiralaBtnActionPerformed
         // TODO add your handling code here:
         try {
-            
+
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date alisTarihi = sdf.parse(alinabilecekTarihCombo.getSelectedItem().toString());
             Date verilisTarihi = sdf.parse(verilebilecekTarihCombo.getSelectedItem().toString());
             if (alisTarihi.compareTo(verilisTarihi) < 0) {
-                MusteriEkrani.dtm2.addRow(new Object[]{dtm.getValueAt(sistemdeBulunanArabalarTable.getSelectedRow(), 0),dtm.getValueAt(sistemdeBulunanArabalarTable.getSelectedRow(), 1), fiyatTxt.getText(),
+                MusteriEkrani.dtm2.addRow(new Object[]{dtm.getValueAt(sistemdeBulunanArabalarTable.getSelectedRow(), 0), dtm.getValueAt(sistemdeBulunanArabalarTable.getSelectedRow(), 1), fiyatTxt.getText(),
                     alinabilecekTarihCombo.getSelectedItem(), verilebilecekTarihCombo.getSelectedItem()});
             } else {
                 JOptionPane.showMessageDialog(arabaKiralaBtn, "Veriliş Tarihi, Alış Tarihinden önce olamaz!...", "Tarih Hatası", JOptionPane.WARNING_MESSAGE);
@@ -219,15 +220,15 @@ public class ArabaKirala extends javax.swing.JFrame {
     ArabaListesi bulunanAraba = null;
     private void araBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_araBtnActionPerformed
         // TODO add your handling code here:
+   
         if (aramaTxt.getText().isEmpty()) {
             JOptionPane.showMessageDialog(arabaKiralaBtn, "Arama Kısmı Boş Bırakılamaz!.. ", "Arama Boş Hatası", JOptionPane.WARNING_MESSAGE);
         } else {
-            dtm.setRowCount(0);
 
             try {
                 for (ArabaListesi araba : ArabaListesi.arabalarim) {
                     if (aramaTxt.getText().equals(araba.model) || araba.fiyat <= Integer.parseInt(aramaTxt.getText())) {
-                        dtm.addRow(new Object[]{araba.model, araba.fiyat});
+                        dtm.addRow(new Object[]{araba.aracNo, araba.model, araba.fiyat});
                         bulunanAraba = araba;
                     }
                 }
@@ -239,20 +240,19 @@ public class ArabaKirala extends javax.swing.JFrame {
         if (bulunanAraba == null) {
             JOptionPane.showMessageDialog(araBtn, "Arama Kısmı Boş Bırakılamaz!.. ", "Arama Boş Hatası", JOptionPane.WARNING_MESSAGE);
         }
-        sistemdeBulunanArabalarTable.setModel(dtm);
+
     }//GEN-LAST:event_araBtnActionPerformed
 
     private void arabalariGetirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arabalariGetirBtnActionPerformed
         // TODO add your handling code here:
-        Sıfırla();
-        dtm.setRowCount(0);
        
-     
+        dtm.setRowCount(0);
+
         for (int i = 0; i < ArabaListesi.arabalarim.size(); i++) {
-            dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).aracNo,ArabaListesi.arabalarim.get(i).model, ArabaListesi.arabalarim.get(i).fiyat});
+            dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).aracNo, ArabaListesi.arabalarim.get(i).model, ArabaListesi.arabalarim.get(i).fiyat});
 
         }
-       
+
     }//GEN-LAST:event_arabalariGetirBtnActionPerformed
     private void tarih() {
 
@@ -340,7 +340,6 @@ public class ArabaKirala extends javax.swing.JFrame {
 
     }
 
-
     /**
      * @param args the command line arguments
      */
@@ -394,9 +393,5 @@ public class ArabaKirala extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> verilebilecekTarihCombo;
     // End of variables declaration//GEN-END:variables
 
-    private void Sıfırla() {
-    dtm=new DefaultTableModel();
-    dtm.setColumnIdentifiers(new Object[]{"Araba Kodu","Araba Modeli", "Günlük Ücret"});
-    sistemdeBulunanArabalarTable.setModel(dtm);
-    }
+   
 }
