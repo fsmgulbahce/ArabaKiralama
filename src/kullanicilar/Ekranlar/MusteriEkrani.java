@@ -15,16 +15,17 @@ import kullanicilar.KullaniciGirisi;
  * @author Rosegarden
  */
 public class MusteriEkrani extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form KullaniciEkrani
      */
     static DefaultTableModel dtm2 = new DefaultTableModel();
+
     public MusteriEkrani() {
         initComponents();
         this.setTitle("Müşteri Ekranı");
         musteriIsmiTxt.setText(kullanicilar.MusteriGiris.girisYapan);
-        dtm2.setColumnIdentifiers(new Object[]{"Araba Modeli", "Toplam Ücret","Alım Tarihi","Teslim Tarihi"});
+        dtm2.setColumnIdentifiers(new Object[]{"Araba Kodu", "Araba Modeli", "Toplam Ücret", "Alım Tarihi", "Teslim Tarihi"});
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         alinanArabalarTable.setModel(dtm2);
     }
@@ -109,12 +110,13 @@ public class MusteriEkrani extends javax.swing.JFrame {
 
     private void iadeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iadeBtnActionPerformed
         // TODO add your handling code here:
-         if (alinanArabalarTable.getSelectedRow() == -1) {
+        if (alinanArabalarTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(iadeBtn, "İade Etmek İçin Araba Seçiniz", "Seçim Yok Hatası", JOptionPane.WARNING_MESSAGE);
-            return;
-        }else{
+        } else {
+            ArabaKirala.dtm.addRow(new Object[]{alinanArabalarTable.getValueAt(alinanArabalarTable.getSelectedRow(), 0), alinanArabalarTable.getValueAt(alinanArabalarTable.getSelectedRow(), 1), alinanArabalarTable.getValueAt(alinanArabalarTable.getSelectedRow(), 2)});
             dtm2.removeRow(alinanArabalarTable.getSelectedRow());
-         }
+
+        }
     }//GEN-LAST:event_iadeBtnActionPerformed
 
     /**

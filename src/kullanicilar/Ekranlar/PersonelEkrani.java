@@ -31,11 +31,7 @@ public class PersonelEkrani extends javax.swing.JFrame {
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dtm.setColumnIdentifiers(new Object[]{"Araba Modeli", "Günlük Ücret"});
         sistemdeOlanlarTable.setModel(dtm);
-         ArabaListesi.arabaYukle();
-          for (int i = 0; i < ArabaListesi.arabalarim.size(); i++) {
-             dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).model, ArabaListesi.arabalarim.get(i).fiyat});
-        }
-
+        ArabalariGetir();
        
     }
 
@@ -86,7 +82,13 @@ public class PersonelEkrani extends javax.swing.JFrame {
             new KullaniciGirisi().setVisible(true);
         }
     }//GEN-LAST:event_formWindowClosing
-
+     void ArabalariGetir(){
+        dtm.setRowCount(0);
+        ArabaListesi.arabaYukle();
+          for (int i = 0; i < ArabaListesi.arabalarim.size(); i++) {
+             dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).model, ArabaListesi.arabalarim.get(i).fiyat});
+        }
+    }
     /**
      * @param args the command line arguments
      */
