@@ -248,7 +248,9 @@ public class ArabaKirala extends javax.swing.JFrame {
         if (sayi == 0) {
             ArabaListesi.arabaYukle();
         }
+        
         sayi++;
+     
         for (int i = 0; i < ArabaListesi.arabalarim.size(); i++) {
             dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).aracNo,ArabaListesi.arabalarim.get(i).model, ArabaListesi.arabalarim.get(i).fiyat});
 
@@ -341,14 +343,7 @@ public class ArabaKirala extends javax.swing.JFrame {
 
     }
 
-//    private void arabaYukle() {
-//        dtm.setRowCount(0);
-//        ArabaListesi.arabaYukle();
-//        for (int i = 0; i < ArabaListesi.arabalarim.size(); i++) {
-//            dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).model, ArabaListesi.arabalarim.get(i).fiyat});
-//        }
-//         sistemdeBulunanArabalarTable.setModel(dtm);
-//    }
+
     /**
      * @param args the command line arguments
      */
