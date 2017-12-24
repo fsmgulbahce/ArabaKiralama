@@ -227,26 +227,27 @@ public class ArabaKirala extends javax.swing.JFrame {
         } else {
             dtm.setRowCount(0);
 
-            String aranilan = aramaTxt.getText();
-
-            for (ArabaListesi araba : ArabaListesi.arabalarim) {
-                if (araba.model.equals(aranilan)) {
-                    dtm.addRow(new Object[]{araba.model, araba.fiyat});
-                    bulunanAraba = araba;
-                } else if (araba.fiyat <= Integer.parseInt(aranilan)) {
-                    dtm.addRow(new Object[]{araba.model, araba.fiyat});
-                    bulunanAraba = araba;
+            try {
+                for (ArabaListesi araba : ArabaListesi.arabalarim) {
+                    if (aramaTxt.getText().equals(araba.model) || araba.fiyat <= Integer.parseInt(aramaTxt.getText())) {
+                        dtm.addRow(new Object[]{araba.model, araba.fiyat});
+                        bulunanAraba = araba;
+                    }
                 }
+            } catch (NumberFormatException ex) {
+
             }
+
         }
         if (bulunanAraba == null) {
-            JOptionPane.showMessageDialog(arabaKiralaBtn, "Arama Kısmı Boş Bırakılamaz!.. ", "Arama Boş Hatası", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(araBtn, "Arama Kısmı Boş Bırakılamaz!.. ", "Arama Boş Hatası", JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_araBtnActionPerformed
 
     private void hepsiniGosterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hepsiniGosterBtnActionPerformed
         // TODO add your handling code here:
+       
     }//GEN-LAST:event_hepsiniGosterBtnActionPerformed
     private void tarih() {
 
