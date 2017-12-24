@@ -15,7 +15,7 @@ import kullanicilar.KullaniciGirisi;
  * @author Rosegarden
  */
 public class MusteriEkrani extends javax.swing.JFrame {
-   
+    
     /**
      * Creates new form KullaniciEkrani
      */
@@ -113,7 +113,7 @@ public class MusteriEkrani extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(iadeBtn, "İade Etmek İçin Araba Seçiniz", "Seçim Yok Hatası", JOptionPane.WARNING_MESSAGE);
             return;
         }else{
-             
+            dtm2.removeRow(alinanArabalarTable.getSelectedRow());
          }
     }//GEN-LAST:event_iadeBtnActionPerformed
 

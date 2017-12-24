@@ -34,7 +34,7 @@ public class ArabaKirala extends javax.swing.JFrame {
     /**
      * Creates new form ArabaKiralama
      */
-    DefaultTableModel dtm = new DefaultTableModel();
+   static DefaultTableModel dtm = new DefaultTableModel();
 
     public ArabaKirala() {
         initComponents();
