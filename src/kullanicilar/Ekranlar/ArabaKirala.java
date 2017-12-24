@@ -42,7 +42,7 @@ public class ArabaKirala extends javax.swing.JFrame {
         this.setTitle("Araba Kiralama");
         tarih();
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        dtm.setColumnIdentifiers(new Object[]{"Araba Kodu","Araba Modeli", "Günlük Ücret"});
+        ArabaListesi.arabaYukle();
 
         sistemdeBulunanArabalarTable.setCellSelectionEnabled(true);
         ListSelectionModel cellSelectionModel = sistemdeBulunanArabalarTable.getSelectionModel();
@@ -79,7 +79,7 @@ public class ArabaKirala extends javax.swing.JFrame {
             }
 
         });
-        sistemdeBulunanArabalarTable.setModel(dtm);
+        Sıfırla();
     }
 
     /**
@@ -244,18 +244,15 @@ public class ArabaKirala extends javax.swing.JFrame {
 
     private void arabalariGetirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arabalariGetirBtnActionPerformed
         // TODO add your handling code here:
+        Sıfırla();
         dtm.setRowCount(0);
-        if (sayi == 0) {
-            ArabaListesi.arabaYukle();
-        }
-        
-        sayi++;
+       
      
         for (int i = 0; i < ArabaListesi.arabalarim.size(); i++) {
             dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).aracNo,ArabaListesi.arabalarim.get(i).model, ArabaListesi.arabalarim.get(i).fiyat});
 
         }
-        sistemdeBulunanArabalarTable.setModel(dtm);
+       
     }//GEN-LAST:event_arabalariGetirBtnActionPerformed
     private void tarih() {
 
@@ -396,4 +393,10 @@ public class ArabaKirala extends javax.swing.JFrame {
     private javax.swing.JTable sistemdeBulunanArabalarTable;
     private javax.swing.JComboBox<String> verilebilecekTarihCombo;
     // End of variables declaration//GEN-END:variables
+
+    private void Sıfırla() {
+    dtm=new DefaultTableModel();
+    dtm.setColumnIdentifiers(new Object[]{"Araba Kodu","Araba Modeli", "Günlük Ücret"});
+    sistemdeBulunanArabalarTable.setModel(dtm);
+    }
 }
