@@ -17,23 +17,26 @@ public class ArabaListesi {
     int fiyat;
     int aracNo;
     public static ArrayList<ArabaListesi> arabalarim = new ArrayList<>();
-
+   
     static void arabaYukle() {
 
         ArabaListesi a1 = new ArabaListesi();
+        a1.aracNo = 1;
         a1.model = "mercedes";
         a1.fiyat = 300;
-        a1.aracNo = 1;
+       
 
         ArabaListesi a2 = new ArabaListesi();
-        a2.model = "şahin";
-        a2.fiyat = 50;
         a2.aracNo = 2;
+        a2.model = "sahin";
+        a2.fiyat = 50;
+        
 
         ArabaListesi a3 = new ArabaListesi();
+         a3.aracNo = 3;
         a3.model = "porsche";
         a3.fiyat = 1050;
-        a3.aracNo = 3;
+       
 
         arabalarim.add(a1);
         arabalarim.add(a2);

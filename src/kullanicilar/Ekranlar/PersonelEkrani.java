@@ -5,7 +5,6 @@
  */
 package kullanicilar.Ekranlar;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
@@ -22,16 +21,19 @@ public class PersonelEkrani extends javax.swing.JFrame {
      * Creates new form PersonelEkrani
      */
     DefaultTableModel dtm = new DefaultTableModel();
+    String basliklar[] = {"Araba Kodu", "Araba Modeli", "Günlük Ücret"};
+    static int gunUcret;
 
     public PersonelEkrani() {
         initComponents();
-        this.getContentPane().setBackground(Color.GRAY);
         this.setTitle("Personel Ekranı");
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        dtm.setColumnIdentifiers(new Object[]{"Araba Kodu", "Araba Modeli", "Günlük Ücret"});
-        sistemdeOlanlarTable.setModel(dtm);
-        ArabalariGetir();
-        arabaKoduTxt.setText(String.valueOf(sistemdeOlanlarTable.getRowCount()));
+
+        if (TabloYukleme.sayac == 0) {
+            ArabaListesi.arabaYukle();
+        }
+        TabloYukleme.sayac++;
+
     }
 
     /**
@@ -53,7 +55,6 @@ public class PersonelEkrani extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         gunlukUcret = new javax.swing.JTextField();
         tabloyuGuncelleBtn = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         arabaSilBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,7 +91,11 @@ public class PersonelEkrani extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(20, 20, 90, 16);
 
-        arabaKoduTxt.setEnabled(false);
+        arabaKoduTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                arabaKoduTxtKeyTyped(evt);
+            }
+        });
         getContentPane().add(arabaKoduTxt);
         arabaKoduTxt.setBounds(120, 10, 190, 30);
 
@@ -121,10 +126,6 @@ public class PersonelEkrani extends javax.swing.JFrame {
         getContentPane().add(tabloyuGuncelleBtn);
         tabloyuGuncelleBtn.setBounds(490, 210, 160, 25);
 
-        jLabel4.setText("(Son eklenen kodu gösterir)");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(120, 50, 190, 16);
-
         arabaSilBtn.setText("Araba Sil");
         arabaSilBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,8 +153,6 @@ public class PersonelEkrani extends javax.swing.JFrame {
     private void arabaEkleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arabaEkleBtnActionPerformed
         // TODO add your handling code here:
 
-        arabaKoduTxt.setText(String.valueOf(Integer.parseInt(arabaKoduTxt.getText()) + 1));
-
         if (arabaModelTxt.getText().isEmpty() || gunlukUcret.getText().isEmpty()) {
             JOptionPane.showMessageDialog(arabaEkleBtn, "Tüm Alanları Doldurunuz !..", "Boş Alan Hatası", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -161,9 +160,24 @@ public class PersonelEkrani extends javax.swing.JFrame {
             yeniArabam.aracNo = Integer.parseInt(arabaKoduTxt.getText());
             yeniArabam.model = arabaModelTxt.getText();
             yeniArabam.fiyat = Integer.parseInt(gunlukUcret.getText());
+            gunUcret = Integer.parseInt(gunlukUcret.getText());
+            boolean kontrol = false;
+            for (ArabaListesi yeniAraba : ArabaListesi.arabalarim) {
+                if (yeniArabam.aracNo == (yeniAraba.aracNo)) {
+                    kontrol = true;
+                    break;
+                }
+            }
 
-            ArabaListesi.arabalarim.add(yeniArabam);
+            if (kontrol) {
+                JOptionPane.showMessageDialog(arabaEkleBtn, "Böyle bir araba kodu zaten var...", "Kod Hatası", JOptionPane.WARNING_MESSAGE);
+            } else {
+                ArabaListesi.arabalarim.add(yeniArabam);
+                JOptionPane.showMessageDialog(this, "Araba başarıyla eklenmiştir.");
+            }
+
         }
+        arabaKoduTxt.setText(null);
         arabaModelTxt.setText(null);
         gunlukUcret.setText(null);
     }//GEN-LAST:event_arabaEkleBtnActionPerformed
@@ -179,7 +193,7 @@ public class PersonelEkrani extends javax.swing.JFrame {
 
     private void tabloyuGuncelleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabloyuGuncelleBtnActionPerformed
         // TODO add your handling code here:
-        dtm.setRowCount(0);
+        resetDtm();
         for (int i = 0; i < ArabaListesi.arabalarim.size(); i++) {
             dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).aracNo, ArabaListesi.arabalarim.get(i).model, ArabaListesi.arabalarim.get(i).fiyat});
         }
@@ -187,50 +201,41 @@ public class PersonelEkrani extends javax.swing.JFrame {
 
     private void arabaSilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arabaSilBtnActionPerformed
         // TODO add your handling code here:
-      
-    }//GEN-LAST:event_arabaSilBtnActionPerformed
-    void ArabalariGetir() {
-        ArabaListesi.arabaYukle();
+        int arabaKodu = Integer.parseInt(sistemdeOlanlarTable.getValueAt(sistemdeOlanlarTable.getSelectedRow(), 0).toString());
+        ArabaListesi iade = new ArabaListesi();
+        iade.aracNo = Integer.parseInt(sistemdeOlanlarTable.getValueAt(sistemdeOlanlarTable.getSelectedRow(), 0).toString());
+        iade.model = sistemdeOlanlarTable.getValueAt(sistemdeOlanlarTable.getSelectedRow(), 1).toString();
+        iade.fiyat = Integer.parseInt(sistemdeOlanlarTable.getValueAt(sistemdeOlanlarTable.getSelectedRow(), 2).toString());
+
         for (int i = 0; i < ArabaListesi.arabalarim.size(); i++) {
-            dtm.addRow(new Object[]{ArabaListesi.arabalarim.get(i).aracNo, ArabaListesi.arabalarim.get(i).model, ArabaListesi.arabalarim.get(i).fiyat});
+            ArabaListesi item = ArabaListesi.arabalarim.get(i);
+            if (arabaKodu == item.aracNo) {
+                ArabaListesi.arabalarim.remove(item);
+            }
         }
+        JOptionPane.showMessageDialog(arabaSilBtn, "Silme işlemi gerçekleşmiştir...", "Silme İşlemi", JOptionPane.INFORMATION_MESSAGE);
+        dtm.removeRow(sistemdeOlanlarTable.getSelectedRow());
+    }//GEN-LAST:event_arabaSilBtnActionPerformed
+
+    private void arabaKoduTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_arabaKoduTxtKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_arabaKoduTxtKeyTyped
+
+    private void resetDtm() {
+        dtm = new DefaultTableModel();
+        dtm.setColumnIdentifiers(basliklar);
+        sistemdeOlanlarTable.setModel(dtm);
     }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PersonelEkrani.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PersonelEkrani.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PersonelEkrani.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PersonelEkrani.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PersonelEkrani().setVisible(true);
-            }
-        });
-    }
-
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton arabaEkleBtn;
     private javax.swing.JTextField arabaKoduTxt;
@@ -240,7 +245,6 @@ public class PersonelEkrani extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable sistemdeOlanlarTable;
     private javax.swing.JButton tabloyuGuncelleBtn;

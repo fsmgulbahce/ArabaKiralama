@@ -140,25 +140,27 @@ public class MusteriUyeOl extends javax.swing.JFrame {
 
                 if (s1.equals(s2)) {
 
-                    for (kullanicilar.Musteri musterim : kullanicilar.MusteriGiris.musteriler) {
+                    for (kullanicilar.Musteri musterim : kullanicilar.Musteri.musteriler) {
                         if (musterim.kimlikNo == (m1.kimlikNo)) {
                             kontrol = true;
+                           
                             break;
                         }
                     }
 
                     if (kontrol) {
-                        JOptionPane.showMessageDialog(uyeOlBtn, "Böyle bir kullanıcı zaten var...", "Benzer Kullanıcı Hatası", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(uyeOlBtn, "Böyle bir kimlik no ya sahip kullanıcı zaten var...", "Kimlik No Hatası", JOptionPane.WARNING_MESSAGE);
                     } else {
-                        kullanicilar.MusteriGiris.musteriler.add(m1);
+                        kullanicilar.Musteri.musteriler.add(m1);
                         JOptionPane.showMessageDialog(this, "Kaydınız başarıyla gerçekleştirilmiştir.");
+
                     }
                 } else {
                     JOptionPane.showMessageDialog(uyeOlBtn, "Şifreler Eşleşmedi", "Şifre Hatası", JOptionPane.WARNING_MESSAGE);
                 }
             }
         }
-
+       
     }//GEN-LAST:event_uyeOlBtnActionPerformed
 
     private void kimlikNoTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kimlikNoTxtKeyTyped

@@ -20,12 +20,9 @@ public class KullaniciGirisi extends javax.swing.JFrame {
     /**
      * Creates new form KullaniciGirisi
      */
-    Icon resim = new ImageIcon("1.jpg");
     public KullaniciGirisi() {
         initComponents();
         this.setTitle("Kullanıcı Girişi");
-        this.getContentPane().setBackground(Color.WHITE);
-        resimLbl.setIcon(resim);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
@@ -39,7 +36,6 @@ public class KullaniciGirisi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        resimLbl = new javax.swing.JLabel();
         personelGirisBtn = new javax.swing.JButton();
         musteriGirisBtn = new javax.swing.JButton();
 
@@ -50,8 +46,6 @@ public class KullaniciGirisi extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(null);
-        getContentPane().add(resimLbl);
-        resimLbl.setBounds(160, 30, 376, 130);
 
         personelGirisBtn.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 23)); // NOI18N
         personelGirisBtn.setForeground(new java.awt.Color(51, 204, 0));
@@ -62,7 +56,7 @@ public class KullaniciGirisi extends javax.swing.JFrame {
             }
         });
         getContentPane().add(personelGirisBtn);
-        personelGirisBtn.setBounds(80, 230, 260, 90);
+        personelGirisBtn.setBounds(70, 170, 260, 90);
 
         musteriGirisBtn.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 23)); // NOI18N
         musteriGirisBtn.setForeground(new java.awt.Color(51, 204, 0));
@@ -73,7 +67,7 @@ public class KullaniciGirisi extends javax.swing.JFrame {
             }
         });
         getContentPane().add(musteriGirisBtn);
-        musteriGirisBtn.setBounds(390, 230, 280, 90);
+        musteriGirisBtn.setBounds(390, 170, 280, 90);
 
         setSize(new java.awt.Dimension(771, 502));
         setLocationRelativeTo(null);
@@ -140,6 +134,5 @@ public class KullaniciGirisi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton musteriGirisBtn;
     private javax.swing.JButton personelGirisBtn;
-    private javax.swing.JLabel resimLbl;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kullanicilar;
-
-import java.util.ArrayList;
+package kullanicilar.Ekranlar;
 
 /**
  *
  * @author Rosegarden
  */
-public class Musteri {
-    public long kimlikNo;
-    public String isim;
-    public String sifre;
-    public static ArrayList<Musteri> musteriler = new ArrayList<>();
+public class TabloYukleme {
+ public static int sayac=0;
 }

@@ -16,7 +16,7 @@ import static kullanicilar.Personel.personelListem;
  * @author Rosegarden
  */
 public class PersonelGiris extends javax.swing.JFrame {
-
+    public static int a = 0;
     /**
      * Creates new form PersonelGiris
      */
@@ -112,8 +112,8 @@ public class PersonelGiris extends javax.swing.JFrame {
         p1.sifre = "102361";
 
         Personel p2 = new Personel();
-        p2.isim = "pers";
-        p2.sifre = "071421";
+        p2.isim = "b";
+        p2.sifre = "1";
 
         Personel.personelListem.add(p1);
         Personel.personelListem.add(p2);

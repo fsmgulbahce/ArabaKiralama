@@ -7,7 +7,6 @@ package kullanicilar;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import kullanicilar.Ekranlar.MusteriEkrani;
@@ -19,7 +18,7 @@ import kullanicilar.uyeOl.MusteriUyeOl;
  */
 public class MusteriGiris extends javax.swing.JFrame {
      public static String girisYapan;
-     public static ArrayList<Musteri> musteriler = new ArrayList<>();
+    public static long id;
     /**
      * Creates new form MüsteriGiris
      */
@@ -125,11 +124,12 @@ public class MusteriGiris extends javax.swing.JFrame {
 private void musteriKontrol() {
        
         boolean kontrol = false;
-        for (int i = 0; i < musteriler.size(); i++) {
-            Musteri musteri1 = musteriler.get(i);
+        for (int i = 0; i < kullanicilar.Musteri.musteriler.size(); i++) {
+            Musteri musteri1 = kullanicilar.Musteri.musteriler.get(i);
             if ((musteri1.kimlikNo == Long.parseLong(kimlikNoTxt.getText())) && (musteri1.sifre.equals(sifreTxt.getText()))) {
                 kontrol = true;
                 girisYapan = musteri1.isim;
+                id = musteri1.kimlikNo;
                 break;
             }
         }
@@ -139,8 +139,6 @@ private void musteriKontrol() {
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(girisBtn, "Girilen Musteri İsmi Veya Şifreniz Yanlış.", "Musteri Bulunamadı", JOptionPane.WARNING_MESSAGE);
-            kimlikNoTxt.setText(null);
-            sifreTxt.setText(null);
         }
     }
     private void kimlikNoTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kimlikNoTxtKeyTyped

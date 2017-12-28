@@ -21,6 +21,7 @@ public class HosGeldiniz extends javax.swing.JFrame {
      * Creates new form HosGeldiniz
      */
     Icon resim = new ImageIcon("1.jpg");
+
     public HosGeldiniz() {
         initComponents();
         this.setTitle("HOŞGELDİNİZ");
@@ -83,8 +84,8 @@ public class HosGeldiniz extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        String []options={"ÇIKIŞ","İPTAL"};
-        int i = JOptionPane.showOptionDialog(this, "Bu işlem sizin programdan çıkmanıza sebep olur."+"\n"+"Devam etmek istiyormusunuz?", "Programdan Çıkış", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        String[] options = {"ÇIKIŞ", "İPTAL"};
+        int i = JOptionPane.showOptionDialog(this, "Bu işlem sizin programdan çıkmanıza sebep olur." + "\n" + "Devam etmek istiyormusunuz?", "Programdan Çıkış", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
         if (i == 0) {
             System.exit(0);
@@ -94,7 +95,6 @@ public class HosGeldiniz extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -126,7 +126,7 @@ public class HosGeldiniz extends javax.swing.JFrame {
             }
         });
     }
-        
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton devamEtBtn;
     private javax.swing.JLabel hosgeldinLbl;

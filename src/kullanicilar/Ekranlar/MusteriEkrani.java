@@ -16,18 +16,17 @@ import kullanicilar.KullaniciGirisi;
  */
 public class MusteriEkrani extends javax.swing.JFrame {
 
-    /**
-     * Creates new form KullaniciEkrani
-     */
-    static DefaultTableModel dtm2 = new DefaultTableModel();
+    String basliklar[] = {"Araba Kodu", "Araba Modeli", "Günlük Ücret", "Toplam Ücret", "Alım Tarihi", "Teslim Tarihi"};
+    DefaultTableModel dtm2 = new DefaultTableModel();
 
     public MusteriEkrani() {
         initComponents();
         this.setTitle("Müşteri Ekranı");
-        musteriIsmiTxt.setText(kullanicilar.MusteriGiris.girisYapan);
-        dtm2.setColumnIdentifiers(new Object[]{"Araba Kodu", "Araba Modeli", "Toplam Ücret", "Alım Tarihi", "Teslim Tarihi"});
+        
+        musteriKimlikTxt.setText(String.valueOf(kullanicilar.MusteriGiris.id));
+       
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        alinanArabalarTable.setModel(dtm2);
+        resetDtm();
     }
 
     /**
@@ -39,11 +38,12 @@ public class MusteriEkrani extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        musteriIsmiTxt = new javax.swing.JTextField();
+        musteriKimlikTxt = new javax.swing.JTextField();
         arabaKiralaBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         alinanArabalarTable = new javax.swing.JTable();
         iadeBtn = new javax.swing.JButton();
+        aldiklarimiGetirBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -53,9 +53,9 @@ public class MusteriEkrani extends javax.swing.JFrame {
         });
         getContentPane().setLayout(null);
 
-        musteriIsmiTxt.setEnabled(false);
-        getContentPane().add(musteriIsmiTxt);
-        musteriIsmiTxt.setBounds(530, 10, 140, 30);
+        musteriKimlikTxt.setEnabled(false);
+        getContentPane().add(musteriKimlikTxt);
+        musteriKimlikTxt.setBounds(570, 10, 140, 30);
 
         arabaKiralaBtn.setText("Araba Kirala");
         arabaKiralaBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +77,7 @@ public class MusteriEkrani extends javax.swing.JFrame {
         jScrollPane1.setViewportView(alinanArabalarTable);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 160, 480, 300);
+        jScrollPane1.setBounds(20, 160, 530, 340);
 
         iadeBtn.setText("İade Et");
         iadeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -86,15 +86,25 @@ public class MusteriEkrani extends javax.swing.JFrame {
             }
         });
         getContentPane().add(iadeBtn);
-        iadeBtn.setBounds(520, 160, 120, 25);
+        iadeBtn.setBounds(570, 200, 140, 25);
 
-        setSize(new java.awt.Dimension(697, 530));
+        aldiklarimiGetirBtn.setText("Aldıklarımı Getir");
+        aldiklarimiGetirBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aldiklarimiGetirBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(aldiklarimiGetirBtn);
+        aldiklarimiGetirBtn.setBounds(570, 160, 140, 25);
+
+        setSize(new java.awt.Dimension(745, 573));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void arabaKiralaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arabaKiralaBtnActionPerformed
         // TODO add your handling code here:
         new ArabaKirala().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_arabaKiralaBtnActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -113,53 +123,55 @@ public class MusteriEkrani extends javax.swing.JFrame {
         if (alinanArabalarTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(iadeBtn, "İade Etmek İçin Araba Seçiniz", "Seçim Yok Hatası", JOptionPane.WARNING_MESSAGE);
         } else {
-            ArabaKirala.dtm.addRow(new Object[]{alinanArabalarTable.getValueAt(alinanArabalarTable.getSelectedRow(), 0), alinanArabalarTable.getValueAt(alinanArabalarTable.getSelectedRow(), 1), alinanArabalarTable.getValueAt(alinanArabalarTable.getSelectedRow(), 2)});
+            int arabaKodu = Integer.parseInt(alinanArabalarTable.getValueAt(alinanArabalarTable.getSelectedRow(), 0).toString());
+            ArabaListesi iade = new ArabaListesi();
+            iade.aracNo = Integer.parseInt(alinanArabalarTable.getValueAt(alinanArabalarTable.getSelectedRow(), 0).toString());
+            iade.model = alinanArabalarTable.getValueAt(alinanArabalarTable.getSelectedRow(), 1).toString();
+            iade.fiyat = Integer.parseInt(String.valueOf(alinanArabalarTable.getValueAt(alinanArabalarTable.getSelectedRow(), 2)));
+
+            ArabaListesi.arabalarim.add(iade);
+            for (int i = 0; i < AlinmisArabalar.musteriAlinanlar.size(); i++) {
+                AlinmisArabalar item = AlinmisArabalar.musteriAlinanlar.get(i);
+                if (arabaKodu == item.aracNo) {
+                    AlinmisArabalar.musteriAlinanlar.remove(item);
+                }
+            }
+            JOptionPane.showMessageDialog(iadeBtn, "İade işlemi gerçekleşmiştir...", "İade Onayı", JOptionPane.INFORMATION_MESSAGE);
             dtm2.removeRow(alinanArabalarTable.getSelectedRow());
 
         }
+        resetDtm();
     }//GEN-LAST:event_iadeBtnActionPerformed
+
+    private void aldiklarimiGetirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aldiklarimiGetirBtnActionPerformed
+        // TODO add your handling code here:
+        resetDtm();
+        for (AlinmisArabalar alinmisListe : AlinmisArabalar.musteriAlinanlar) {
+            if (alinmisListe.musteriID == kullanicilar.MusteriGiris.id) {
+                dtm2.addRow(new Object[]{alinmisListe.aracNo, alinmisListe.alModel, alinmisListe.gunUcret, alinmisListe.TopUcret, alinmisListe.aTarih, alinmisListe.vTarih});
+            }
+
+        }
+
+
+    }//GEN-LAST:event_aldiklarimiGetirBtnActionPerformed
+
+    private void resetDtm() {
+        dtm2 = new DefaultTableModel();
+        dtm2.setColumnIdentifiers(basliklar);
+        alinanArabalarTable.setModel(dtm2);
+    }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MusteriEkrani.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MusteriEkrani.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MusteriEkrani.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MusteriEkrani.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MusteriEkrani().setVisible(true);
-            }
-        });
-    }
-
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton aldiklarimiGetirBtn;
     private javax.swing.JTable alinanArabalarTable;
     private javax.swing.JButton arabaKiralaBtn;
     private javax.swing.JButton iadeBtn;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField musteriIsmiTxt;
+    private javax.swing.JTextField musteriKimlikTxt;
     // End of variables declaration//GEN-END:variables
 }
